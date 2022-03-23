@@ -19,29 +19,33 @@ export interface IPages extends Document {
   button: IButton
   questions: [IQuestion]
   rules?: IRules
-  
 }
 
 interface RulesPageDocument extends Document, IRules {}
 
-const rulesPageSchema = new Schema<RulesPageDocument, Model<RulesPageDocument>>({
-  questionId: {
-    type: String,
-    required: true,
-  },
-  valueRedirect: {
-    type: String,
-    required: true,
-  },
-  pageRedirect: {
-    type: Types.ObjectId,
-    required: true,
-  },
-})
+const rulesPageSchema = new Schema<RulesPageDocument, Model<RulesPageDocument>>(
+  {
+    questionId: {
+      type: String,
+      required: true,
+    },
+    valueRedirect: {
+      type: String,
+      required: true,
+    },
+    pageRedirect: {
+      type: Types.ObjectId,
+      required: true,
+    },
+  }
+)
 
 interface ButtonPageDocument extends Document, IButton {}
 
-const buttonPageSchema = new Schema<ButtonPageDocument, Model<ButtonPageDocument>>({
+const buttonPageSchema = new Schema<
+  ButtonPageDocument,
+  Model<ButtonPageDocument>
+>({
   label: {
     type: String,
     required: true,
@@ -54,10 +58,15 @@ const buttonPageSchema = new Schema<ButtonPageDocument, Model<ButtonPageDocument
 
 interface QuestionPageDocument extends Document, IQuestion {}
 
-const questionPageSchema = new Schema<QuestionPageDocument, Model<QuestionPageDocument>>({
+const questionPageSchema = new Schema<
+  QuestionPageDocument,
+  Model<QuestionPageDocument>
+>({
   questionId: {
     type: Types.ObjectId,
     required: true,
+    /// <reference path="" />
+    ref: 'questions',
   },
 })
 
@@ -74,8 +83,5 @@ const schema = new Schema(
   { collection: 'pages', timestamps: { createdAt: 'createdAt' } }
 )
 
-const PagesModel: IPagesModels = model<IPages, IPagesModels>(
-  'pages',
-  schema
-)
+const PagesModel: IPagesModels = model<IPages, IPagesModels>('pages', schema)
 export default PagesModel

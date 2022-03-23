@@ -24,7 +24,7 @@ const schema = new Schema(
     },
     initialDate: { type: Date, required: true },
     finalDate: { type: Date, required: true },
-    initialPage: { type: Types.ObjectId, required: true },
+    initialPage: { type: Types.ObjectId, required: true, ref: 'pages' },
   },
   { collection: 'surveys', timestamps: { createdAt: 'createdAt' } }
 )

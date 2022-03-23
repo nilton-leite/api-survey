@@ -1,4 +1,4 @@
-import { parse } from 'date-fns';
+import { parse } from 'date-fns'
 import { Request, Response } from 'express'
 import status from 'http-status'
 import Container from '../configs/ioc'
@@ -23,14 +23,8 @@ export class SurveysController {
   }
 
   public async create(req: Request, res: Response) {
-    const {
-      title,
-      description,
-      status,
-      initialDate,
-      finalDate,
-      initialPage,
-    } = req.body
+    const { title, description, status, initialDate, finalDate, initialPage } =
+      req.body
 
     const refereceDate = new Date()
     refereceDate.setHours(23, 59, 59, 999)
@@ -84,20 +78,16 @@ export class SurveysController {
       Types.ObjectId(id)
     )
     const retorno = await this.surveysService.get(Types.ObjectId(id))
-    return res.status(status.OK).send(retorno)
+    return res.status(status.OK).send('OK')
   }
 
   async get(req: Request, res: Response) {
     const { id } = req.body
 
     try {
-      if (id) {
-        const retorno = await this.surveysService.get(Types.ObjectId(id))
+      const retorno = await this.surveysService.get(Types.ObjectId(id))
 
-        return res.json([retorno])
-      }
-
-      return res.json([])
+      return res.json([retorno])
     } catch (error: any) {
       return res.status(400).send(error.message)
     }
