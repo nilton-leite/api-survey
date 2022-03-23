@@ -1,10 +1,6 @@
 import Container from '../configs/ioc'
 import QuestionsModel from '../models/questions'
-import {
-  ICreate,
-  IFindOne,
-  IUpdate,
-} from '../utils/types/models/questions'
+import { ICreate, IFindOne, IUpdate } from '../utils/types/models/questions'
 import { Types } from 'mongoose'
 
 export interface IQuestionsRepository {

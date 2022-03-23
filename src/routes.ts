@@ -19,11 +19,15 @@ export default async ({
   const router = Router()
 
   // Questions routes
-  router.post('/questions', questionsController.create.bind(questionsController))
+  router.post(
+    '/questions',
+    questionsController.create.bind(questionsController)
+  )
 
   // Pages routes
   router.post('/pages', pagesController.create.bind(pagesController))
-  
+  router.get('/pages/:nextPage', pagesController.getPage.bind(pagesController))
+
   // Request routes
   router.post('/surveys', surveysController.create.bind(surveysController))
   router.get('/surveys', surveysController.get.bind(surveysController))

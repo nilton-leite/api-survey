@@ -4,7 +4,7 @@ import Container from '../configs/ioc'
 import { Logger } from 'winston'
 import dotenv from 'dotenv'
 import { Types } from 'mongoose'
-import { ICreate, IUpdate } from '../utils/types/models/pages'
+import { ICreate, IGetPage, IUpdate } from '../utils/types/models/pages'
 import { PagesService, IPagesService } from '../services/pages'
 
 const envFound = dotenv.config()
@@ -21,15 +21,18 @@ export class PagesController {
     this.pagesService = pagesService
   }
 
+  public async getPage(req: Request, res: Response) {
+    const { nextPage } = req.params
+
+    let parameters: IGetPage = {
+      nextPage: new Types.ObjectId(nextPage),
+    }
+    const retorno = await this.pagesService.getPage({ data: parameters })
+    return res.status(status.OK).send(retorno)
+  }
+
   public async create(req: Request, res: Response) {
-    const {
-      type,
-      message,
-      button,
-      questions,
-      rules,
-     } =
-      req.body
+    const { type, message, button, questions, rules } = req.body
 
     let parameters: ICreate = {
       type,
@@ -51,14 +54,7 @@ export class PagesController {
   }
 
   public async update(req: Request, res: Response) {
-    const { 
-      type,
-      message,
-      button,
-      questions,
-      rules,
-      id 
-    } = req.body
+    const { type, message, button, questions, rules, id } = req.body
 
     let parameters: IUpdate = {
       type,
@@ -68,8 +64,10 @@ export class PagesController {
       rules,
     }
 
-    const retorno = await this.pagesService.updateOne({ data: parameters }, Types.ObjectId(id))
+    const retorno = await this.pagesService.updateOne(
+      { data: parameters },
+      Types.ObjectId(id)
+    )
     return res.status(status.OK).send(retorno)
   }
-
 }

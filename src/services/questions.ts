@@ -1,9 +1,5 @@
 import Container from '../configs/ioc'
-import {
-  ICreate,
-  IFindOne,
-  IUpdate,
-} from '../utils/types/models/questions'
+import { ICreate, IFindOne, IUpdate } from '../utils/types/models/questions'
 import { Types } from 'mongoose'
 
 export interface IQuestionsService {
@@ -12,7 +8,9 @@ export interface IQuestionsService {
   get(userId: Types.ObjectId): Promise<any>
 }
 
-export const QuestionsService = ({ questionsRepository }: Container): IQuestionsService => {
+export const QuestionsService = ({
+  questionsRepository,
+}: Container): IQuestionsService => {
   return {
     create: async (data) => {
       const saveData: any = await questionsRepository.create(data.data)

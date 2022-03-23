@@ -1,15 +1,15 @@
 export enum TypeQuestion {
-    TEXT = 'TEXT',
-    SINGLE = 'SINGLE',
-    MULTIPLE = 'MULTIPLE'
+  TEXT = 'TEXT',
+  SINGLE = 'SINGLE',
+  MULTIPLE = 'MULTIPLE',
 }
 
 export enum TypePage {
-    QUESTION = 'QUESTION',
-    MESSAGE = 'MESSAGE',
+  QUESTION = 'QUESTION',
+  MESSAGE = 'MESSAGE',
 }
 
 export enum IStatusSurvey {
-    OPENED = 'OPENED',
-    CLOSED = 'CLOSED',
-  }
+  OPENED = 'OPENED',
+  CLOSED = 'CLOSED',
+}

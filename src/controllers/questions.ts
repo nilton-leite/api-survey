@@ -6,11 +6,7 @@ import dotenv from 'dotenv'
 import jsonwebtoken from 'jsonwebtoken'
 import { parse } from 'date-fns'
 import { IQuestionsService } from '../services/questions'
-import {
-  ICreate,
-  IFindOne,
-  IUpdate,
-} from '../utils/types/models/questions'
+import { ICreate, IFindOne, IUpdate } from '../utils/types/models/questions'
 import { Types } from 'mongoose'
 
 const envFound = dotenv.config()
@@ -28,13 +24,7 @@ export class QuestionsController {
   }
 
   public async create(req: Request, res: Response) {
-    const {
-      description,
-      type,
-      options,
-      required,
-      next
-    } = req.body
+    const { description, type, options, required, next } = req.body
 
     const refereceDate = new Date()
     refereceDate.setHours(23, 59, 59, 999)
@@ -44,7 +34,7 @@ export class QuestionsController {
       type,
       options,
       required,
-      next
+      next,
     }
 
     const retorno = await this.questionsService.create({ data: parameters })
@@ -59,14 +49,7 @@ export class QuestionsController {
   }
 
   public async update(req: Request, res: Response) {
-    const { 
-      description,
-      type,
-      options,
-      required,
-      next,
-      id 
-    } = req.body
+    const { description, type, options, required, next, id } = req.body
 
     let parameters: IUpdate = {
       description,
@@ -76,11 +59,14 @@ export class QuestionsController {
       next,
     }
 
-    await this.questionsService.updateOne({ data: parameters }, Types.ObjectId(id))
+    await this.questionsService.updateOne(
+      { data: parameters },
+      Types.ObjectId(id)
+    )
     const retorno = await this.questionsService.get(Types.ObjectId(id))
     return res.status(status.OK).send(retorno)
   }
- 
+
   async get(req: Request, res: Response) {
     const { id } = req.body
 

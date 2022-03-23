@@ -17,7 +17,10 @@ export interface IQuestions extends Document {
 
 interface OptionsQuestionDocument extends Document, IOptions {}
 
-const optionsSchema = new Schema<OptionsQuestionDocument, Model<OptionsQuestionDocument>>({
+const optionsSchema = new Schema<
+  OptionsQuestionDocument,
+  Model<OptionsQuestionDocument>
+>({
   label: {
     type: String,
     required: true,
@@ -38,11 +41,14 @@ const schema = new Schema(
   {
     description: { type: String, required: true },
     type: { type: String, enum: TypeQuestion, required: true },
-    options: { 
-      type: [optionsSchema], 
+    options: {
+      type: [optionsSchema],
       required: function (this: IQuestions) {
-        return this.type === TypeQuestion.MULTIPLE || this.type === TypeQuestion.SINGLE
-      }, 
+        return (
+          this.type === TypeQuestion.MULTIPLE ||
+          this.type === TypeQuestion.SINGLE
+        )
+      },
     },
     required: { type: Boolean, required: true },
     next: { type: Types.ObjectId, required: false },
@@ -50,5 +56,8 @@ const schema = new Schema(
   { collection: 'questions', timestamps: { createdAt: 'createdAt' } }
 )
 
-const QuestionsModel: IQuestionsModels = model<IQuestions, IQuestionsModels>('questions', schema)
+const QuestionsModel: IQuestionsModels = model<IQuestions, IQuestionsModels>(
+  'questions',
+  schema
+)
 export default QuestionsModel

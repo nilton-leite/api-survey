@@ -15,6 +15,9 @@ export interface ICreate {
   questions: [IQuestion]
   rules?: IRules
 }
+export interface IGetPage {
+  nextPage: Types.ObjectId
+}
 export interface IUpdate {
   type: TypePage
   message?: String
